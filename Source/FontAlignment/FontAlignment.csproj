@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net472;net5.0-windows</TargetFrameworks>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <Authors>emoacht</Authors>
+    <Copyright>Copyright @ 2021 emoacht</Copyright>
+  </PropertyGroup>
+
+</Project>

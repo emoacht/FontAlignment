@@ -1,0 +1,384 @@
+﻿<Window x:Class="FontAlignmentFinder.MainWindow"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:local="clr-namespace:FontAlignmentFinder"
+		x:Name="WindowRoot"
+		Title="Font Alignment Finder"
+		Height="400" Width="800">
+	<Window.Resources>
+		<local:DistanceZoomConverter x:Key="DistanceZoomConverterKey"/>
+
+		<SolidColorBrush x:Key="App.Background" Color="#FFF0F0F0"/>
+		<SolidColorBrush x:Key="App.Foreground" Color="Black"/>
+
+		<SolidColorBrush x:Key="AscentBrush" Color="Orange"/>
+		<SolidColorBrush x:Key="UppercaseBrush" Color="Blue"/>
+		<SolidColorBrush x:Key="LowercaseBrush" Color="Purple"/>
+		<SolidColorBrush x:Key="BaselineBrush" Color="Red"/>
+		<SolidColorBrush x:Key="DescentBrush" Color="HotPink"/>
+		<SolidColorBrush x:Key="BottomBrush" Color="SkyBlue"/>
+		<SolidColorBrush x:Key="FontCenterBrush" Color="LimeGreen"/>
+		<SolidColorBrush x:Key="UppercaseCenterBrush" Color="DarkGray"/>
+		<SolidColorBrush x:Key="ExtentCenterBrush" Color="DimGray"/>
+		<SolidColorBrush x:Key="TextBoxCenterBrush" Color="#AA8F8F8F"/>
+	</Window.Resources>
+
+	<Window.Background>
+		<StaticResource ResourceKey="App.Background"/>
+	</Window.Background>
+
+	<ScrollViewer VerticalScrollBarVisibility="Auto"
+				  UseLayoutRounding="True" SnapsToDevicePixels="True">
+		<Grid>
+			<StackPanel>
+				<Grid Margin="8,8,0,0"
+					  Background="White"
+					  ClipToBounds="True">
+					<Grid.Resources>
+						<Style x:Key="HeightBorderStyle" TargetType="{x:Type Border}">
+							<Setter Property="VerticalAlignment" Value="Top"/>
+							<Setter Property="HorizontalAlignment" Value="Stretch"/>
+							<Setter Property="BorderThickness" Value="0,0,0,1"/>
+						</Style>
+					</Grid.Resources>
+
+					<!-- Main TextBox -->
+					<TextBox x:Name="MainTextBox"
+							 BorderThickness="0"
+							 Background="Transparent"
+							 Foreground="{StaticResource App.Foreground}"
+							 FontFamily="Arial" FontSize="100"
+							 Text="MÃaËfg"
+							 RenderTransformOrigin="0,0">
+						<TextBox.RenderTransform>
+							<ScaleTransform ScaleX="{Binding ElementName=WindowRoot, Path=ZoomRatio, Mode=OneWay}"
+											ScaleY="{Binding ElementName=WindowRoot, Path=ZoomRatio, Mode=OneWay}"/>
+						</TextBox.RenderTransform>
+					</TextBox>
+
+					<!-- Lines -->
+					<Border Style="{StaticResource HeightBorderStyle}"
+							BorderBrush="{StaticResource AscentBrush}">
+						<Border.Height>
+							<MultiBinding Converter="{StaticResource DistanceZoomConverterKey}">
+								<Binding ElementName="WindowRoot" Path="Ascent" Mode="OneWay"/>
+								<Binding ElementName="WindowRoot" Path="ZoomRatio" Mode="OneWay"/>
+							</MultiBinding>
+						</Border.Height>
+					</Border>
+
+					<Border Style="{StaticResource HeightBorderStyle}"
+							BorderBrush="{StaticResource UppercaseBrush}">
+						<Border.Height>
+							<MultiBinding Converter="{StaticResource DistanceZoomConverterKey}">
+								<Binding ElementName="WindowRoot" Path="Uppercase" Mode="OneWay"/>
+								<Binding ElementName="WindowRoot" Path="ZoomRatio" Mode="OneWay"/>
+							</MultiBinding>
+						</Border.Height>
+					</Border>
+
+					<Border Style="{StaticResource HeightBorderStyle}"
+							BorderBrush="{StaticResource LowercaseBrush}">
+						<Border.Height>
+							<MultiBinding Converter="{StaticResource DistanceZoomConverterKey}">
+								<Binding ElementName="WindowRoot" Path="Lowercase" Mode="OneWay"/>
+								<Binding ElementName="WindowRoot" Path="ZoomRatio" Mode="OneWay"/>
+							</MultiBinding>
+						</Border.Height>
+					</Border>
+
+					<Border Style="{StaticResource HeightBorderStyle}"
+							BorderBrush="{StaticResource BaselineBrush}">
+						<Border.Height>
+							<MultiBinding Converter="{StaticResource DistanceZoomConverterKey}">
+								<Binding ElementName="WindowRoot" Path="Baseline" Mode="OneWay"/>
+								<Binding ElementName="WindowRoot" Path="ZoomRatio" Mode="OneWay"/>
+							</MultiBinding>
+						</Border.Height>
+					</Border>
+
+					<Border Style="{StaticResource HeightBorderStyle}"
+							BorderBrush="{StaticResource DescentBrush}">
+						<Border.Height>
+							<MultiBinding Converter="{StaticResource DistanceZoomConverterKey}">
+								<Binding ElementName="WindowRoot" Path="Descent" Mode="OneWay"/>
+								<Binding ElementName="WindowRoot" Path="ZoomRatio" Mode="OneWay"/>
+							</MultiBinding>
+						</Border.Height>
+					</Border>
+
+					<Border Style="{StaticResource HeightBorderStyle}"
+							BorderBrush="{StaticResource BottomBrush}">
+						<Border.Height>
+							<MultiBinding Converter="{StaticResource DistanceZoomConverterKey}">
+								<Binding ElementName="WindowRoot" Path="Bottom" Mode="OneWay"/>
+								<Binding ElementName="WindowRoot" Path="ZoomRatio" Mode="OneWay"/>
+							</MultiBinding>
+						</Border.Height>
+					</Border>
+
+					<Border Style="{StaticResource HeightBorderStyle}"
+							BorderBrush="{StaticResource FontCenterBrush}">
+						<Border.Height>
+							<MultiBinding Converter="{StaticResource DistanceZoomConverterKey}">
+								<Binding ElementName="WindowRoot" Path="FontCenter" Mode="OneWay"/>
+								<Binding ElementName="WindowRoot" Path="ZoomRatio" Mode="OneWay"/>
+							</MultiBinding>
+						</Border.Height>
+					</Border>
+
+					<Border Style="{StaticResource HeightBorderStyle}"
+							BorderBrush="{StaticResource UppercaseCenterBrush}">
+						<Border.Height>
+							<MultiBinding Converter="{StaticResource DistanceZoomConverterKey}">
+								<Binding ElementName="WindowRoot" Path="UppercaseCenter" Mode="OneWay"/>
+								<Binding ElementName="WindowRoot" Path="ZoomRatio" Mode="OneWay"/>
+							</MultiBinding>
+						</Border.Height>
+					</Border>
+
+					<Border Style="{StaticResource HeightBorderStyle}"
+							BorderBrush="{StaticResource ExtentCenterBrush}">
+						<Border.Height>
+							<MultiBinding Converter="{StaticResource DistanceZoomConverterKey}">
+								<Binding ElementName="WindowRoot" Path="ExtentCenter" Mode="OneWay"/>
+								<Binding ElementName="WindowRoot" Path="ZoomRatio" Mode="OneWay"/>
+							</MultiBinding>
+						</Border.Height>
+					</Border>
+				</Grid>
+
+				<Grid Margin="8"
+					  HorizontalAlignment="Left">
+					<!-- Sub TextBox -->
+					<TextBox Foreground="{StaticResource App.Foreground}"
+							 Padding="{Binding ElementName=WindowRoot, Path=OffsetPadding, Mode=OneWay}"
+							 FontFamily="{Binding ElementName=MainTextBox, Path=FontFamily, Mode=OneWay}"
+							 FontStyle="{Binding ElementName=MainTextBox, Path=FontStyle, Mode=OneWay}"
+							 FontWeight="{Binding ElementName=MainTextBox, Path=FontWeight, Mode=OneWay}"
+							 FontSize="{Binding ElementName=MainTextBox, Path=FontSize, Mode=OneWay}"
+							 Text="{Binding ElementName=MainTextBox, Path=Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+					<!-- Line -->
+					<Border Height="1" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+							BorderThickness="0,1,0,0"
+							BorderBrush="{StaticResource TextBoxCenterBrush}">
+					</Border>
+				</Grid>
+			</StackPanel>
+
+			<Border HorizontalAlignment="Right" VerticalAlignment="Top"
+					Background="{StaticResource App.Background}">
+				<Grid Margin="8,8,8,4">
+					<Grid.Resources>
+						<Style x:Key="NameTextBlockStyle" TargetType="{x:Type TextBlock}">
+							<Setter Property="Margin" Value="0,2,4,0"/>
+							<Setter Property="Padding" Value="2,0"/>
+							<Setter Property="Foreground" Value="White"/>
+							<Style.Triggers>
+								<DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Background}" Value="{x:Null}">
+									<Setter Property="Foreground" Value="{StaticResource App.Foreground}"/>
+								</DataTrigger>
+							</Style.Triggers>
+						</Style>
+
+						<Style x:Key="ValueTextBlockStyle" TargetType="{x:Type TextBlock}">
+							<Setter Property="Margin" Value="0,2,0,0"/>
+							<Setter Property="HorizontalAlignment" Value="Right"/>
+							<Setter Property="VerticalAlignment" Value="Center"/>
+						</Style>
+					</Grid.Resources>
+
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="*"/>
+						<ColumnDefinition Width="Auto"/>
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+					</Grid.RowDefinitions>
+
+					<!-- Font Family -->
+					<TextBlock Grid.Column="0" Grid.Row="0"
+							   Style="{StaticResource NameTextBlockStyle}"
+							   Text="Font Family"/>
+					<ComboBox Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2"
+							  x:Name="FontFamilyComboBox"/>
+
+					<!-- Font Style -->
+					<TextBlock Grid.Column="0" Grid.Row="1"
+							   Style="{StaticResource NameTextBlockStyle}"
+							   Text="Font Style"/>
+					<ComboBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"
+							  x:Name="FontStyleComboBox"/>
+
+					<!-- Font Weight -->
+					<TextBlock Grid.Column="0" Grid.Row="2"
+							   Style="{StaticResource NameTextBlockStyle}"
+							   Text="Font Weight"/>
+					<ComboBox Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2"
+							  x:Name="FontWeightComboBox"/>
+
+					<!-- Font Size -->
+					<TextBlock Grid.Column="0" Grid.Row="3"
+							   Style="{StaticResource NameTextBlockStyle}"
+							   Text="Font Size"/>
+					<ComboBox Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2"
+							  x:Name="FontSizeComboBox"/>
+
+					<!-- Zoom -->
+					<TextBlock Grid.Column="0" Grid.Row="4"
+							   Style="{StaticResource NameTextBlockStyle}"
+							   Text="Zoom"/>
+					<ComboBox Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="2"
+							  x:Name="ZoomComboBox"/>
+
+					<!-- Metric -->
+					<TextBlock Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2"
+							   Style="{StaticResource NameTextBlockStyle}"
+							   Margin="0,4,4,0"
+							   Background="{StaticResource AscentBrush}"
+							   Text="Ascent"/>
+					<TextBlock Grid.Column="2" Grid.Row="5"
+							   Style="{StaticResource ValueTextBlockStyle}"
+							   Text="{Binding ElementName=WindowRoot, Path=Ascent, StringFormat={}{0:f1}}"/>
+
+					<TextBlock Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2"
+							   Style="{StaticResource NameTextBlockStyle}"
+							   Background="{StaticResource UppercaseBrush}"
+							   Text="Uppercase"/>
+					<TextBlock Grid.Column="2" Grid.Row="6"
+							   Style="{StaticResource ValueTextBlockStyle}"
+							   Text="{Binding ElementName=WindowRoot, Path=Uppercase, StringFormat={}{0:f1}}"/>
+
+					<TextBlock Grid.Column="0" Grid.Row="7" Grid.ColumnSpan="2"
+							   Style="{StaticResource NameTextBlockStyle}"
+							   Background="{StaticResource LowercaseBrush}"
+							   Text="Lowercase"/>
+					<TextBlock Grid.Column="2" Grid.Row="7"
+							   Style="{StaticResource ValueTextBlockStyle}"
+							   Text="{Binding ElementName=WindowRoot, Path=Lowercase, StringFormat={}{0:f1}}"/>
+
+					<TextBlock Grid.Column="0" Grid.Row="8" Grid.ColumnSpan="2"
+							   Style="{StaticResource NameTextBlockStyle}"
+							   Background="{StaticResource BaselineBrush}"
+							   Text="Baseline"/>
+					<TextBlock Grid.Column="2" Grid.Row="8"
+							   Style="{StaticResource ValueTextBlockStyle}"
+							   Text="{Binding ElementName=WindowRoot, Path=Baseline, StringFormat={}{0:f1}}"/>
+
+					<TextBlock Grid.Column="0" Grid.Row="9" Grid.ColumnSpan="2"
+							   Style="{StaticResource NameTextBlockStyle}"
+							   Background="{StaticResource DescentBrush}"
+							   Text="Descent"/>
+					<TextBlock Grid.Column="2" Grid.Row="9"
+							   Style="{StaticResource ValueTextBlockStyle}"
+							   Text="{Binding ElementName=WindowRoot, Path=Descent, StringFormat={}{0:f1}}"/>
+
+					<TextBlock Grid.Column="0" Grid.Row="10" Grid.ColumnSpan="2"
+							   Style="{StaticResource NameTextBlockStyle}"
+							   Background="{StaticResource BottomBrush}"
+							   Text="Bottom"/>
+					<TextBlock Grid.Column="2" Grid.Row="10"
+							   Style="{StaticResource ValueTextBlockStyle}"
+							   Text="{Binding ElementName=WindowRoot, Path=Bottom, StringFormat={}{0:f1}}"/>
+
+					<TextBlock Grid.Column="0" Grid.Row="11" Grid.ColumnSpan="2"
+							   Style="{StaticResource NameTextBlockStyle}"
+							   Background="{StaticResource FontCenterBrush}"
+							   Text="Font Center"/>
+					<TextBlock Grid.Column="2" Grid.Row="11"
+							   Style="{StaticResource ValueTextBlockStyle}"
+							   Text="{Binding ElementName=WindowRoot, Path=FontCenter, StringFormat={}{0:f1}}"/>
+
+					<TextBlock Grid.Column="0" Grid.Row="12" Grid.ColumnSpan="2"
+							   Style="{StaticResource NameTextBlockStyle}"
+							   Background="{StaticResource UppercaseCenterBrush}"
+							   Text="Uppercase Center"/>
+					<TextBlock Grid.Column="2" Grid.Row="12"
+							   Style="{StaticResource ValueTextBlockStyle}"
+							   Text="{Binding ElementName=WindowRoot, Path=UppercaseCenter, StringFormat={}{0:f1}}"/>
+
+					<TextBlock Grid.Column="0" Grid.Row="13" Grid.ColumnSpan="2"
+							   Style="{StaticResource NameTextBlockStyle}"
+							   Background="{StaticResource ExtentCenterBrush}"
+							   Text="Extent Center"/>
+					<TextBlock Grid.Column="2" Grid.Row="13"
+							   Style="{StaticResource ValueTextBlockStyle}"
+							   Text="{Binding ElementName=WindowRoot, Path=ExtentCenter, StringFormat={}{0:f1}}"/>
+
+					<!-- Offset -->
+					<ToggleButton Grid.Column="0" Grid.Row="14" Grid.ColumnSpan="2"
+								  Margin="0,2,4,0" Padding="3,0,4,0"
+								  IsThreeState="True"
+								  FontWeight="Bold"
+								  IsChecked="{Binding ElementName=WindowRoot, Path=OffsetState, Mode=TwoWay}">
+						<ToggleButton.Style>
+							<Style TargetType="{x:Type ToggleButton}" BasedOn="{StaticResource {x:Type ToggleButton}}">
+								<Setter Property="BorderThickness" Value="1"/>
+								<Setter Property="BorderBrush" Value="#FF878787"/>
+								<Setter Property="Background" Value="LightGray"/>
+								<Setter Property="Foreground" Value="{StaticResource App.Foreground}"/>
+								<Setter Property="HorizontalContentAlignment" Value="Left"/>
+								<Setter Property="VerticalContentAlignment" Value="Center"/>
+								<Setter Property="Content" Value="No Offset"/>
+								<Setter Property="Template">
+									<Setter.Value>
+										<ControlTemplate TargetType="{x:Type ToggleButton}">
+											<Grid>
+												<Border BorderThickness="{TemplateBinding BorderThickness}"
+														BorderBrush="{TemplateBinding BorderBrush}"
+														Background="{TemplateBinding Background}"/>
+												<Rectangle x:Name="Overlay" Fill="DodgerBlue" Opacity="0"/>
+												<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+																  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+																  Margin="{TemplateBinding Padding}"/>
+											</Grid>
+											<ControlTemplate.Triggers>
+												<Trigger Property="IsMouseOver" Value="True">
+													<Setter TargetName="Overlay" Property="Opacity" Value="0.2"/>
+												</Trigger>
+												<Trigger Property="IsChecked" Value="True">
+													<Setter Property="Content" Value="Extent Center Offset"/>
+													<Setter Property="Background" Value="White"/>
+												</Trigger>
+												<Trigger Property="IsChecked" Value="False">
+													<Setter Property="Content" Value="Uppercase Center Offset"/>
+													<Setter Property="Background" Value="White"/>
+												</Trigger>
+											</ControlTemplate.Triggers>
+										</ControlTemplate>
+									</Setter.Value>
+								</Setter>
+							</Style>
+						</ToggleButton.Style>
+					</ToggleButton>
+					<TextBlock Grid.Column="2" Grid.Row="14"
+							   Style="{StaticResource ValueTextBlockStyle}"
+							   FontWeight="Bold" FontSize="16"
+							   Text="{Binding ElementName=WindowRoot, Path=Offset, StringFormat={}{0:f1}}"/>
+
+					<!-- Unit -->
+					<TextBlock Grid.Column="0" Grid.Row="15" Grid.ColumnSpan="3"
+							   Style="{StaticResource ValueTextBlockStyle}"
+							   Text="Unit: DIP"/>
+				</Grid>
+			</Border>
+		</Grid>
+	</ScrollViewer>
+</Window>
