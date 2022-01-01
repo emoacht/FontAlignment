@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Globalization;
 using System.Linq;
 using System.Windows;
@@ -18,13 +18,13 @@ public class FontMetric
 	public double Ascent { get; }
 
 	/// <summary>
-	/// Distance from Top to Uppercase (uppercase alphabetic charactors).
+	/// Distance from Top to Uppercase (uppercase alphabetic characters).
 	/// This position matches cap height.
 	/// </summary>
 	public double Uppercase { get; }
 
 	/// <summary>
-	/// Distance from Top to Lowercase (lowercase alphabetic charactors).
+	/// Distance from Top to Lowercase (lowercase alphabetic characters).
 	/// This position matches x-height.
 	/// </summary>
 	public double Lowercase { get; }
@@ -51,7 +51,7 @@ public class FontMetric
 	public double Extent { get; }
 
 	/// <summary>
-	/// Offset length from vertical center of font to vertical center of uppercase charactors.
+	/// Offset length from vertical center of font to vertical center of uppercase characters.
 	/// This is equal to the difference between top space (from Top to Uppercase) and bottom
 	/// space (from Baseline to Bottom) divided by 2.
 	/// </summary>
@@ -67,9 +67,12 @@ public class FontMetric
 	/// <summary>
 	/// Constructor
 	/// </summary>
-	/// <param name="formattedText">FormattedText</param>
+	/// <param name="formattedText">FormattedText created by text to be reflected</param>
 	/// <param name="typeface">Font typeface</param>
 	/// <param name="emSize">Font size</param>
+	/// <remarks>
+	/// Only the first line of text will be reflected.
+	/// </remarks>
 	public FontMetric(FormattedText formattedText, Typeface typeface, double emSize)
 	{
 		Extent = formattedText.Extent;
@@ -89,10 +92,13 @@ public class FontMetric
 	/// <summary>
 	/// Constructor
 	/// </summary>
-	/// <param name="text">Text</param>
+	/// <param name="text">Text to be reflected</param>
 	/// <param name="typeface">Font typeface</param>
 	/// <param name="emSize">Font size</param>
 	/// <param name="pixelsPerDip">Pixels per DIP</param>
+	/// <remarks>
+	/// Only the first line of text will be reflected. 
+	/// </remarks>
 	public FontMetric(string text, Typeface typeface, double emSize, double pixelsPerDip) :
 		this(GetFormattedText(text, typeface, emSize, pixelsPerDip), typeface, emSize)
 	{ }

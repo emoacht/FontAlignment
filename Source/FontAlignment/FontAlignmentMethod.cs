@@ -12,22 +12,22 @@ public enum FontAlignmentMethod
 	None = 0,
 
 	/// <summary>
-	/// Aligns the vertical center of uppercase characters by shrinking padding.
+	/// Aligns the vertical center of Uppercase characters by shrinking padding.
 	/// </summary>
 	UppercaseCenterShrink,
 
 	/// <summary>
-	/// Aligns the vertical center of uppercase characters by expanding padding.
+	/// Aligns the vertical center of Uppercase characters by expanding padding.
 	/// </summary>
 	UppercaseCenterExpand,
 
 	/// <summary>
-	/// Aligns the vertical center of extent by shrinking padding.
+	/// Aligns the vertical center of Extent by shrinking padding.
 	/// </summary>
 	ExtentCenterShrink,
 
 	/// <summary>
-	/// Aligns the vertical center of extent by expanding padding.
+	/// Aligns the vertical center of Extent by expanding padding.
 	/// </summary>
 	ExtentCenterExpand
 }

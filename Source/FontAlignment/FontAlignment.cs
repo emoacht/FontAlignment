@@ -36,7 +36,7 @@ public static class FontAlignment
 
 			element.Loaded -= OnElementLoaded;
 			element.Unloaded -= OnElementUnloaded;
-			_elements.Remove((FrameworkElement)sender);
+			_elements.Remove(element);
 		}
 	}
 
