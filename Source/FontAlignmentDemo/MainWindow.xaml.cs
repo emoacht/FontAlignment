@@ -43,7 +43,7 @@ namespace FontAlignmentDemo
 				{
 					MainFontFamily = buffer!;
 
-					FontAlignment.FontAlignment.AdjustPadding();
+					FontAlignment.FontAlignment.AdjustPaddings();
 				}
 			};
 

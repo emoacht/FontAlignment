@@ -15,6 +15,7 @@ public static class FontAlignment
 		public FontAlignmentMethod Method;
 		public Thickness BasePadding;
 		public string? Text;
+		public bool IsAdjusted;
 
 		public static IReadOnlyDictionary<FrameworkElement, Item> Elements => _elements;
 		private static readonly Dictionary<FrameworkElement, Item> _elements = new();
@@ -71,6 +72,9 @@ public static class FontAlignment
 
 					var item = Item.GetItem(element);
 					item.Method = (FontAlignmentMethod)e.NewValue;
+
+					if (element.IsLoaded)
+						AdjustPadding(element, item);
 				}));
 
 	/// <summary>
@@ -104,6 +108,9 @@ public static class FontAlignment
 
 					var item = Item.GetItem(element);
 					item.BasePadding = (Thickness)e.NewValue;
+
+					if (element.IsLoaded)
+						AdjustPadding(element, item);
 				}));
 
 	/// <summary>
@@ -137,6 +144,18 @@ public static class FontAlignment
 
 					var item = Item.GetItem(element);
 					item.Text = (string)e.NewValue;
+
+					if (item.IsAdjusted)
+					{
+						switch (item.Method)
+						{
+							case FontAlignmentMethod.UppercaseCenterShrink:
+							case FontAlignmentMethod.UppercaseCenterExpand:
+							case FontAlignmentMethod.None:
+								return;
+						}
+					}
+					item.IsAdjusted = true;
 
 					if (!element.IsLoaded)
 					{
@@ -212,7 +231,7 @@ public static class FontAlignment
 	/// <summary>
 	/// Adjusts paddings of all elements immediately.
 	/// </summary>
-	public static void AdjustPadding()
+	public static void AdjustPaddings()
 	{
 		// Deconstruct method for KeyValuePair is not available on .NET Framework as is.
 		foreach (var pair in Item.Elements)
