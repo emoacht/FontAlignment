@@ -63,3 +63,13 @@ This attached property offers 4 methods to make respective vertical center to be
 Generally, if the height of element is fixed, UppercaseCenterShrink will produce a good result. In some fonts, the vertical center of actual font glyphs does not match the the center of Uppercase characters. To use such fonts, specify ExtentCenterShrink instead.
 
 `VerticalContentAlignment="Center"` is necessary to align text itself. `ClipToBounds="True"` is to prevent text highlight area from going beyond the outline of element when text is highlighted.
+
+## History
+
+v1.0 2021-12-31
+
+ - Initial release
+
+## License
+
+ - MIT License
