@@ -20,33 +20,29 @@ namespace FontAlignmentFinder
 	{
 		#region Font Family
 
-		private void PrepareFontFamily()
+		private void PrepareFontFamily(string defaultFontName)
 		{
-			this.FontFamilyComboBox.ItemsSource = Fonts.SystemFontFamilies.Select(x => x.Source).ToArray();
+			this.FontFamilyComboBox.ItemsSource = FontHelper.AvailableFontNames;
 
-			if (TryFindFontFamily("Times New Roman", out FontFamily? buffer))
+			if (FontHelper.TryGetFontFamily(defaultFontName, out FontFamily? buffer))
 			{
 				this.MainTextBox.FontFamily = buffer;
-				this.FontFamilyComboBox.SelectedItem = buffer?.Source;
+				this.FontFamilyComboBox.SelectedItem = defaultFontName;
 			}
 
 			this.FontFamilyComboBox.SelectionChanged += (_, _) =>
 			{
-				var fontFamilyName = this.FontFamilyComboBox.SelectedItem?.ToString();
+				var fontName = this.FontFamilyComboBox.SelectedItem?.ToString();
+				if (string.IsNullOrEmpty(fontName))
+					return;
 
-				if (TryFindFontFamily(fontFamilyName, out FontFamily? buffer))
+				if (FontHelper.TryGetFontFamily(fontName, out FontFamily? buffer))
 				{
 					this.MainTextBox.FontFamily = buffer;
 
 					ReflectFontMetric(this.MainTextBox);
 				}
 			};
-
-			static bool TryFindFontFamily(string? fontFamilyName, out FontFamily? fontFamily)
-			{
-				fontFamily = Fonts.SystemFontFamilies.FirstOrDefault(x => x.Source == fontFamilyName);
-				return (fontFamily is not null);
-			}
 		}
 
 		#endregion
@@ -149,7 +145,7 @@ namespace FontAlignmentFinder
 		{
 			InitializeComponent();
 
-			PrepareFontFamily();
+			PrepareFontFamily("Times New Roman");
 			PrepareFontStyle();
 			PrepareFontWeight();
 			PrepareFontSize();
