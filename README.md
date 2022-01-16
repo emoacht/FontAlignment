@@ -29,7 +29,7 @@ You can align a text inside the element which hosts the text by setting vertical
  
 The degree of offset between the center of font glyphs and the center of font depends on each font and character. This offset is a part of font design but sometimes it could be troublesome. To fine-tune the vertical alignment of text, you need to move up or down the text by arbitrary length but it is not always easy to find the appropriate length.
 
-__Font Alignment Finder__ will greatly help to find the appropriate length for the specified font family, style, weight and size.
+__Font Alignment Finder__ will greatly help to find the appropriate length for the specified font family, style, weight and size. <ins>To check fonts that have not been installed yet, place them on the desktop so that they will be automatically detected.</ins>
 
 ## Usage
 
